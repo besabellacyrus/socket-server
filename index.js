@@ -1,8 +1,7 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
-  origins: '*:*',  
-  transports: ['polling'] 
+  origins: '*:*',   
 });
 
 // const io = require('socket.io')(http, {
@@ -13,7 +12,7 @@ const io = require('socket.io')(http, {
 //   cookie: false,
 // }); 
 
-const port = 8080;
+const port = 3000;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); 
