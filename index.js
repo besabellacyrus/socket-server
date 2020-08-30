@@ -1,7 +1,7 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
-  origins: '*:*',   
+  origins: '*:*',    
 });
 
 // const io = require('socket.io')(http, {
@@ -39,6 +39,10 @@ io.on('connection', (socket) => {
   socket.on('book', (e) => {
     console.log('has a book', e);
     socket.broadcast.emit('riderBook', e);
+  });
+  socket.on('forPickup', (e) => {
+    const socketId = sessionsMap[e.customerId];
+    io.to(socketId).emit('forPickup', e);
   });
   socket.on('pickedup', (e) => {
     const socketId = sessionsMap[e.customerId];
