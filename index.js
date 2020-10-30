@@ -2,6 +2,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
   origins: '*:*',    
+  transports: ['websocket', 'polling'],
 });
 
 // const io = require('socket.io')(http, {
@@ -60,8 +61,10 @@ io.on('connection', (socket) => {
     const socketId = sessionsMap[e.customerId];
     io.to(socketId).emit('riderCoord', e);
   });
+  socket.on('disconnect', (e) => {
+    console.log('user disconnected', e);
+  });
 });
-
 http.listen(port, () => {
   console.log('listening on *: ' + port);
 });
