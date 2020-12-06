@@ -70,10 +70,13 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', (e) => {
     const socketId = socket.id;
-    const foundRider = riders.find((rider) => {
-      return rider.socketId === socketId
-    })
-    console.log('user disconnected', foundRider);
+    for (const property in riders) {
+      console.log(`${property}: ${object[property]}`);
+      if (object[property].socketId === socketId) {
+        delete object[property];
+      }
+    }
+    console.log('user disconnected', riders);
   });
 });
 http.listen(port, () => {
