@@ -74,6 +74,7 @@ io.on('connection', (socket) => {
       console.log(`${property}: ${riders[property]}`);
       if (riders[property].socketId === socketId) {
         delete riders[property];
+        io.emit('activeRiders', riders);
       }
     }
     console.log({ disconnected: riders });
