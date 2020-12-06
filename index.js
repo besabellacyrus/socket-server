@@ -70,7 +70,10 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', (e) => {
     const socketId = socket.id;
-    console.log('user disconnected', socketId);
+    const foundRider = riders.find((rider) => {
+      return rider.socketId === socketId
+    })
+    console.log('user disconnected', foundRider);
   });
 });
 http.listen(port, () => {
