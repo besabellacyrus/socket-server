@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
   socket.on('coordsRider', (e) => { 
     riders[e.riderId] = { socketId: socket.id, ...e };
     socket.broadcast.emit('broadcastRidersCoords', riders);
+    io.emit('activeRiders', riders);
   });
   socket.on('completed', (e) => {
     const socketId = sessionsMap[e.customerId];
