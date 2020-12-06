@@ -71,9 +71,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', (e) => {
     const socketId = socket.id;
     for (const property in riders) {
-      console.log(`${property}: ${object[property]}`);
-      if (object[property].socketId === socketId) {
-        delete object[property];
+      console.log(`${property}: ${riders[property]}`);
+      if (riders[property].socketId === socketId) {
+        delete riders[property];
       }
     }
     console.log('user disconnected', riders);
