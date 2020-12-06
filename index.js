@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
         delete riders[property];
       }
     }
-    console.log('user disconnected', riders);
+    console.log({ disconnected: riders });
   });
 });
 http.listen(port, () => {
