@@ -69,7 +69,8 @@ io.on('connection', (socket) => {
     io.to(socketId).emit('riderCoord', e);
   });
   socket.on('disconnect', (e) => {
-    console.log('user disconnected', e);
+    const socketId = socket.id;
+    console.log('user disconnected', socketId);
   });
 });
 http.listen(port, () => {
