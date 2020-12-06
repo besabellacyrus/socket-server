@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 const sessionsMap = {};
+const riders = {};
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -48,6 +49,11 @@ io.on('connection', (socket) => {
   socket.on('pickedup', (e) => {
     const socketId = sessionsMap[e.customerId];
     io.to(socketId).emit('isPickedUp', e);
+  });
+  // create a online rider coord broadcast
+  socket.on('coordsRider', (e) => { 
+    socket.broadcast.emit('broadcastRidersCoords', e);
+    riders[e.riderId] = { socketId: socket.id, ...e };
   });
   socket.on('completed', (e) => {
     const socketId = sessionsMap[e.customerId];
