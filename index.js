@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
   // create a online rider coord broadcast
   socket.on('coordsRider', (e) => { 
     riders[e.riderId] = { socketId: socket.id, ...e };
-    socket.broadcast.emit('broadcastRidersCoords', riders);
+    socket.broadcast.emit(`broadcastRidersCoords${e.riderId}`, riders[e.riderId]);
     io.emit('activeRiders', riders);
   });
   socket.on('completed', (e) => {
@@ -77,6 +77,11 @@ io.on('connection', (socket) => {
         io.emit('activeRiders', riders);
       }
     }
+    // for (const prop in sessionsMap) {
+    //   if (sessionsMap[prop] === socketId) {
+    //     delete sessionsMap[prop];
+    //   }
+    // }
     console.log({ disconnected: riders });
   });
 });
